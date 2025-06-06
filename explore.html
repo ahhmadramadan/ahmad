@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Explore Our Love</title>
+  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --main-pink: #fcbad3;
+      --light-pink: #ffe3ec;
+      --accent: #ff6f91;
+      --text: #4a148c;
+      --white: #ffffff;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(to bottom, var(--light-pink), var(--main-pink));
+      color: var(--text);
+    }
+
+    header {
+      text-align: center;
+      padding: 100px 20px 60px;
+      background-color: var(--accent);
+      color: white;
+    }
+
+    header h1 {
+      font-family: 'Indie Flower', cursive;
+      font-size: 3em;
+      margin-bottom: 10px;
+    }
+
+    .menu {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 30px auto;
+      max-width: 800px;
+    }
+
+    .menu button {
+      background-color: var(--accent);
+      color: white;
+      font-size: 1.1em;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .menu button:hover {
+      background-color: var(--text);
+      transform: scale(1.05);
+    }
+
+    .menu button.active {
+      background-color: var(--text);
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .content-section {
+      display: none;
+      background-color: var(--white);
+      border-radius: 15px;
+      padding: 30px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 900px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.5s ease;
+      
+  background: white;
+  margin-top: 40px;
+  border: 2px dashed var(--light-pink);
+
+
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .gallery img {
+      width: 200px;
+      border-radius: 15px;
+      margin: 10px;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+    }
+
+    .love-notes ul {
+      list-style: '💖 ';
+      padding-left: 30px;
+      text-align: left;
+      font-size: 1.2em;
+    }
+
+    .open-when button {
+      margin: 10px;
+      background-color: var(--main-pink);
+      color: var(--text);
+      padding: 10px 20px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .open-when button:hover {
+      background-color: var(--accent);
+      color: white;
+    }
+
+    .letter-content {
+      margin-top: 20px;
+      font-style: italic;
+      font-size: 1.1em;
+      background: var(--light-pink);
+      padding: 20px;
+      border-radius: 15px;
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    video {
+      max-width: 100%;
+      border-radius: 15px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .back-btn {
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .back-btn a {
+      background-color: var(--accent);
+      color: white;
+      padding: 12px 25px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-btn a:hover {
+      background-color: var(--text);
+    }
+
+    .gallery img {
+  position: relative;
+}
+
+.gallery img::after {
+  content: "So many memories 💞";
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: white;
+  font-size: 0.9em;
+  background: rgba(0,0,0,0.4);
+  padding: 5px 10px;
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.gallery img:hover::after {
+  opacity: 1;
+}
+
+.curve-divider {
+  position: relative;
+  margin-top: -60px;
+  z-index: 1;
+}
+
+.floating-menu {
+  position: fixed;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: var(--light-pink);
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+.floating-menu a {
+  text-decoration: none;
+  font-size: 1.2em;
+}
+
+.love-notes li {
+  background-color: #fffacd;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 10px 0;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
+  transform: rotate(-1deg);
+}
+
+
+    footer {
+      text-align: center;
+      background: var(--accent);
+      color: white;
+      padding: 20px;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Explore Our Love 💕</h1>
+    <p>Where should we go next, habibti?</p>
+  </header>
+
+  <nav class="floating-menu">
+  <a href="#photosGallery">📷</a>
+  <a href="#catGallery">🐱</a>
+  <a href="#loveNotes">💘</a>
+  <a href="#openWhen">💌</a>
+  <a href="#videoSection">🎬</a>
+  <a href="#memorySection">📖</a>
+</nav>
+
+
+  <div class="curve-divider">
+  <svg viewBox="0 0 1440 150" preserveAspectRatio="none" style="display:block; width:100%; height:80px;">
+    <path d="M0,96L80,106.7C160,117,320,139,480,138.7C640,139,800,117,960,117.3C1120,117,1280,139,1360,149.3L1440,160L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z" fill="#ffffff"></path>
+  </svg>
+</div>
+
+
+  <div class="menu">
+    <button onclick="toggleSection('photosGallery', this)">📷 Our Photos</button>
+    <button onclick="toggleSection('catGallery', this)">🐱 Our Cat</button>
+    <button onclick="toggleSection('loveNotes', this)">💘 Love Notes</button>
+    <button onclick="toggleSection('openWhen', this)">💌 Open When Letters</button>
+    <button onclick="toggleSection('videoSection', this)">🎬 Video Message</button>
+    <button onclick="toggleSection('memorySection', this)">📖 Our Story</button>
+  </div>
+
+  <div id="photosGallery" class="content-section gallery" style="display:none;">
+    <img src="photo1.jpg" alt="Us">
+    <img src="photo2.jpg" alt="Us">
+    <img src="photo3.jpg" alt="Us">
+    <img src="photo4.jpg" alt="Us">
+    <img src="photo5.jpg" alt="Us">
+    <img src="photo6.jpg" alt="Us">
+  </div>
+
+  <div id="catGallery" class="content-section gallery" style="display:none;">
+    <img src="cat1.jpg" alt="Our Cat">
+    <img src="cat2.jpg" alt="Our Cat">
+    <img src="cat3.jpg" alt="Our Cat">
+  </div>
+
+  <div id="loveNotes" class="content-section" style="display:none;">
+    <h2>Reasons I Love You 💘</h2>
+    <ul>
+      <li>You know how to make me smile even on tough days.</li>
+      <li>Your cuddles are better than any blanket. 🧸</li>
+      <li>You care about little things that matter big time.</li>
+      <li>We laugh at the same dumb memes.</li>
+      <li>You're simply my favorite human. 🌍</li>
+    </ul>
+  </div>
+
+  <div id="openWhen" class="content-section" style="display:none;">
+    <h2>Open When Letters 💌</h2>
+    <button onclick="toggleLetter('happyLetter', this)">Open When You're Happy 😊</button>
+    <button onclick="toggleLetter('sadLetter', this)">Open When You're Sad 😢</button>
+    <div id="happyLetter" class="letter-content">I hope your smile is as big as your heart today. I'm so proud of you 💖</div>
+    <div id="sadLetter" class="letter-content">Hey, love. It's okay to feel sad sometimes. I'm always here for you, no matter what 💌</div>
+  </div>
+
+  <div id="videoSection" class="content-section" style="display:none;">
+    <h2>A Video Just for You 🎬</h2>
+    <video controls>
+      <source src="video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div id="memorySection" class="content-section" style="display:none;">
+    <h2>📖 Our Story</h2>
+    <p>We met, we laughed, we clicked. From that first glance to today, every moment with you has been a beautiful chapter in our love story. I can't wait to write more pages together.</p>
+  </div>
+
+  <div class="back-btn">
+    <a href="index.html">← Back to Main Page</a>
+  </div>
+
+  <footer>
+    <p>Made with love by [Your Name] 💘</p>
+  </footer>
+
+  <script>
+    // Toggle main sections
+    function toggleSection(sectionId, button) {
+      const section = document.getElementById(sectionId);
+      const allSections = document.querySelectorAll('.content-section');
+      const allButtons = document.querySelectorAll('.menu button');
+      
+      // Toggle the clicked section
+      if (section.style.display === 'block') {
+        section.style.display = 'none';
+        button.classList.remove('active');
+      } else {
+        // Hide all other sections
+        allSections.forEach(sec => {
+          sec.style.display = 'none';
+        });
+        
+        // Remove active class from all buttons
+        allButtons.forEach(btn => {
+          btn.classList.remove('active');
+        });
+        
+        // Show clicked section and mark button as active
+        section.style.display = 'block';
+        button.classList.add('active');
+      }
+    }
+
+    // Toggle letters in Open When section
+    function toggleLetter(letterId, button) {
+      const letter = document.getElementById(letterId);
+      const allLetters = document.querySelectorAll('.letter-content');
+      
+      // Toggle the clicked letter
+      if (letter.style.display === 'block') {
+        letter.style.display = 'none';
+      } else {
+        // Hide all other letters
+        allLetters.forEach(ltr => {
+          ltr.style.display = 'none';
+        });
+        
+        // Show clicked letter
+        letter.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
