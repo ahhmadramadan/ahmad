@@ -4,312 +4,780 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Explore Our Love</title>
-  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Quicksand:wght@300;400;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --main-pink: #fcbad3;
-      --light-pink: #ffe3ec;
-      --accent: #ff6f91;
-      --text: #4a148c;
+      --primary: #ff6b9d;
+      --secondary: #c44569;
+      --accent: #f8b500;
+      --bg-light: #fff0f8;
+      --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+      --text-dark: #2c2c54;
+      --text-light: #40407a;
       --white: #ffffff;
+      --shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+      --shadow-hover: 0 15px 40px rgba(255, 107, 157, 0.4);
+      --card-bg: rgba(255, 255, 255, 0.95);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      margin: 0;
-      font-family: 'Quicksand', sans-serif;
-      background: linear-gradient(to bottom, var(--light-pink), var(--main-pink));
-      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-dark);
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
     }
 
+    /* Corner Decorations */
+    .corner-decoration {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .corner-top-left {
+      top: 0;
+      left: 0;
+      width: 150px;
+      height: 150px;
+      background: linear-gradient(135deg, var(--primary), transparent);
+      clip-path: polygon(0 0, 100% 0, 0 100%);
+      opacity: 0.3;
+    }
+
+    .corner-top-right {
+      top: 20px;
+      right: 20px;
+      font-size: 2rem;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .corner-bottom-left {
+      bottom: 20px;
+      left: 20px;
+      font-size: 1.5rem;
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    .corner-bottom-right {
+      bottom: 0;
+      right: 0;
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(45deg, var(--accent), transparent);
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+      opacity: 0.2;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(5deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    /* Floating Love Elements */
+    .love-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .floating-love {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.4;
+      animation: floatLove 12s infinite linear;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+
+    @keyframes floatLove {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.4;
+      }
+      90% {
+        opacity: 0.4;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Sparkle Effect */
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: sparkle 3s infinite ease-in-out;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Header */
     header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       text-align: center;
-      padding: 100px 20px 60px;
-      background-color: var(--accent);
-      color: white;
+      padding: 120px 20px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hearts" patternUnits="userSpaceOnUse" width="20" height="20"><path d="M10,6 C10,3 7,1 5,3 C3,1 0,3 0,6 C0,10 5,14 10,6 Z" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>');
+      animation: backgroundFloat 20s infinite linear;
+    }
+
+    @keyframes backgroundFloat {
+      0% { transform: translateX(0) translateY(0); }
+      100% { transform: translateX(-20px) translateY(-20px); }
     }
 
     header h1 {
       font-family: 'Indie Flower', cursive;
-      font-size: 3em;
+      font-size: clamp(3rem, 8vw, 5rem);
+      color: var(--white);
+      text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 2;
       margin-bottom: 10px;
+      animation: titlePulse 3s ease-in-out infinite;
     }
 
+    @keyframes titlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.9);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Curve Divider */
+    .curve-divider {
+      position: relative;
+      margin-top: -60px;
+      z-index: 3;
+    }
+
+    .curve-divider svg {
+      display: block;
+      width: 100%;
+      height: 80px;
+      filter: drop-shadow(0 -5px 10px rgba(0,0,0,0.1));
+    }
+
+    /* Navigation Menu */
     .menu {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin: 30px auto;
-      max-width: 800px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      margin: 60px auto;
+      max-width: 1200px;
+      padding: 0 20px;
     }
 
-    .menu button {
-      background-color: var(--accent);
-      color: white;
-      font-size: 1.1em;
-      padding: 15px 30px;
-      border: none;
-      border-radius: 30px;
+    .menu-item {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      padding: 35px;
+      text-align: center;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.8);
+      position: relative;
+      overflow: hidden;
     }
 
-    .menu button:hover {
-      background-color: var(--text);
-      transform: scale(1.05);
+    .menu-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      transition: left 0.5s ease;
     }
 
-    .menu button.active {
-      background-color: var(--text);
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    .menu-item:hover::before {
+      left: 100%;
     }
 
+    .menu-item:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .menu-item.active {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      transform: translateY(-5px);
+    }
+
+    .menu-item.active .menu-icon {
+      transform: scale(1.2);
+    }
+
+    .menu-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .menu-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .menu-desc {
+      font-size: 0.95rem;
+      opacity: 0.8;
+    }
+
+    /* Content Sections */
     .content-section {
       display: none;
-      background-color: var(--white);
-      border-radius: 15px;
-      padding: 30px;
-      margin: 20px auto;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      padding: 50px 40px;
+      margin: 40px auto;
       width: 90%;
-      max-width: 900px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      animation: fadeIn 0.5s ease;
-      
-  background: white;
-  margin-top: 40px;
-  border: 2px dashed var(--light-pink);
-
-
+      max-width: 1200px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.8);
+      position: relative;
+      overflow: hidden;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    .content-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary), var(--accent), var(--secondary));
     }
 
+    .content-section.show {
+      display: block;
+      animation: slideIn 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+    }
+
+    @keyframes slideIn {
+      from { 
+        opacity: 0; 
+        transform: translateY(30px) scale(0.95);
+      }
+      to { 
+        opacity: 1; 
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .section-title {
+      text-align: center;
+      color: var(--primary);
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      border-radius: 2px;
+    }
+
+    /* Gallery Styles */
     .gallery {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 20px 0;
     }
 
-    .gallery img {
-      width: 200px;
-      border-radius: 15px;
-      margin: 10px;
-      transition: transform 0.3s;
-      cursor: pointer;
+    .gallery-item {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      transition: all 0.4s ease;
+      aspect-ratio: 1;
     }
 
-    .gallery img:hover {
+    .gallery-item:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
       transform: scale(1.1);
     }
 
-    .love-notes ul {
-      list-style: '💖 ';
-      padding-left: 30px;
-      text-align: left;
-      font-size: 1.2em;
+    .gallery-item::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, rgba(255,107,157,0.1), rgba(248,181,0,0.1));
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
 
-    .open-when button {
-      margin: 10px;
-      background-color: var(--main-pink);
-      color: var(--text);
-      padding: 10px 20px;
+    .gallery-item:hover::after {
+      opacity: 1;
+    }
+
+    /* Love Notes */
+    .love-notes {
+      display: grid;
+      gap: 20px;
+    }
+
+    .love-note {
+      background: linear-gradient(135deg, rgba(255,107,157,0.1), rgba(248,181,0,0.1));
+      padding: 30px;
       border-radius: 20px;
-      border: none;
+      border-left: 5px solid var(--primary);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .love-note:hover {
+      transform: translateX(10px);
+      box-shadow: 0 8px 25px rgba(255,107,157,0.2);
+    }
+
+    .love-note::before {
+      content: '💖';
+      position: absolute;
+      left: 20px;
+      top: 20px;
+      font-size: 1.5rem;
+    }
+
+    .love-note p {
+      margin-left: 50px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* Open When Letters */
+    .open-when {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .open-when-item {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 25px;
+      border-radius: 20px;
       cursor: pointer;
       transition: all 0.3s ease;
+      text-align: center;
+      box-shadow: var(--shadow);
     }
 
-    .open-when button:hover {
-      background-color: var(--accent);
-      color: white;
+    .open-when-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .open-when-item h4 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
     }
 
     .letter-content {
-      margin-top: 20px;
-      font-style: italic;
-      font-size: 1.1em;
-      background: var(--light-pink);
-      padding: 20px;
-      border-radius: 15px;
+      margin-top: 30px;
+      padding: 30px;
+      background: linear-gradient(135deg, rgba(255,107,157,0.1), rgba(248,181,0,0.1));
+      border-radius: 20px;
+      border-left: 5px solid var(--accent);
       display: none;
       animation: fadeIn 0.5s ease;
+    }
+
+    .letter-content.show {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .letter-content h4 {
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+    }
+
+    .letter-content p {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    /* Video Section */
+    .video-container {
+      text-align: center;
+      padding: 20px;
     }
 
     video {
       max-width: 100%;
-      border-radius: 15px;
-      display: block;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      background: #000;
+    }
+
+    /* Memory Section */
+    .memory-content {
+      text-align: center;
+      padding: 40px;
+    }
+
+    .memory-content p {
+      font-size: 1.3rem;
+      line-height: 1.8;
+      color: var(--text-light);
+      max-width: 800px;
       margin: 0 auto;
     }
 
+    /* Back Button */
     .back-btn {
-      margin-top: 40px;
       text-align: center;
+      margin: 60px auto 40px;
     }
 
     .back-btn a {
-      background-color: var(--accent);
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
-      padding: 12px 25px;
-      border-radius: 25px;
+      padding: 18px 40px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-radius: 50px;
       text-decoration: none;
-      font-size: 1em;
-      transition: background-color 0.3s ease;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .back-btn a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      transition: width 0.4s ease;
+      z-index: -1;
+    }
+
+    .back-btn a:hover::before {
+      width: 100%;
     }
 
     .back-btn a:hover {
-      background-color: var(--text);
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: var(--shadow-hover);
     }
 
-    .gallery img {
-  position: relative;
-}
-
-.gallery img::after {
-  content: "So many memories 💞";
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  color: white;
-  font-size: 0.9em;
-  background: rgba(0,0,0,0.4);
-  padding: 5px 10px;
-  border-radius: 10px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-.gallery img:hover::after {
-  opacity: 1;
-}
-
-.curve-divider {
-  position: relative;
-  margin-top: -60px;
-  z-index: 1;
-}
-
-.floating-menu {
-  position: fixed;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  background: var(--light-pink);
-  padding: 10px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  z-index: 10;
-}
-
-.floating-menu a {
-  text-decoration: none;
-  font-size: 1.2em;
-}
-
-.love-notes li {
-  background-color: #fffacd;
-  padding: 15px;
-  border-radius: 8px;
-  margin: 10px 0;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.1);
-  transform: rotate(-1deg);
-}
-
-
+    /* Footer */
     footer {
-      text-align: center;
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
       color: white;
-      padding: 20px;
-      margin-top: 60px;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    footer p {
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .menu {
+        grid-template-columns: 1fr;
+        padding: 0 15px;
+      }
+      
+      .content-section {
+        padding: 30px 25px;
+        margin: 20px 15px;
+      }
+      
+      .gallery {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+      }
+      
+      .open-when {
+        grid-template-columns: 1fr;
+      }
+
+      .corner-top-left,
+      .corner-bottom-right {
+        width: 80px;
+        height: 80px;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Corner Decorations -->
+  <div class="corner-decoration corner-top-left"></div>
+  <div class="corner-decoration corner-top-right">✨</div>
+  <div class="corner-decoration corner-bottom-left">💫</div>
+  <div class="corner-decoration corner-bottom-right"></div>
+
+  <!-- Floating Love Elements Container -->
+  <div class="love-container">
+    <div class="floating-love" style="left: 20%; animation-delay: 0s;">💕</div>
+    <div class="floating-love" style="left: 80%; animation-delay: 6s;">💖</div>
+    
+    <!-- Sparkles -->
+    <div class="sparkle" style="top: 15%; left: 10%; animation-delay: 1s;"></div>
+    <div class="sparkle" style="top: 25%; right: 15%; animation-delay: 2s;"></div>
+    <div class="sparkle" style="bottom: 30%; left: 20%; animation-delay: 3s;"></div>
+  </div>
+
   <header>
-    <h1>Explore Our Love 💕</h1>
-    <p>Where should we go next, habibti?</p>
+    <h1>Part of My Appreciation 💕</h1>
+    <p class="subtitle">Alah ma3ekkk</p>
   </header>
 
-  <nav class="floating-menu">
-  <a href="#photosGallery">📷</a>
-  <a href="#catGallery">🐱</a>
-  <a href="#loveNotes">💘</a>
-  <a href="#openWhen">💌</a>
-  <a href="#videoSection">🎬</a>
-  <a href="#memorySection">📖</a>
-</nav>
-
-
   <div class="curve-divider">
-  <svg viewBox="0 0 1440 150" preserveAspectRatio="none" style="display:block; width:100%; height:80px;">
-    <path d="M0,96L80,106.7C160,117,320,139,480,138.7C640,139,800,117,960,117.3C1120,117,1280,139,1360,149.3L1440,160L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z" fill="#ffffff"></path>
-  </svg>
-</div>
-
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+      <path d="M0,96L80,106.7C160,117,320,139,480,138.7C640,139,800,117,960,117.3C1120,117,1280,139,1360,149.3L1440,160L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z" fill="rgba(255,255,255,0.95)"></path>
+    </svg>
+  </div>
 
   <div class="menu">
-    <button onclick="toggleSection('photosGallery', this)">📷 Our Photos</button>
-    <button onclick="toggleSection('catGallery', this)">🐱 Our Cat</button>
-    <button onclick="toggleSection('loveNotes', this)">💘 Love Notes</button>
-    <button onclick="toggleSection('openWhen', this)">💌 Open When Letters</button>
-    <button onclick="toggleSection('videoSection', this)">🎬 Video Message</button>
-    <button onclick="toggleSection('memorySection', this)">📖 Our Story</button>
+    <div class="menu-item" onclick="toggleSection('photosGallery', this)">
+      <span class="menu-icon">📷</span>
+      <div class="menu-title">Our Photos</div>
+      <div class="menu-desc">cutest memories</div>
+    </div>
+    
+    <div class="menu-item" onclick="toggleSection('catGallery', this)">
+      <span class="menu-icon">🐱</span>
+      <div class="menu-title">Smokey</div>
+      <div class="menu-desc">our little angel</div>
+    </div>
+    
+    <div class="menu-item" onclick="toggleSection('loveNotes', this)">
+      <span class="menu-icon">💘</span>
+      <div class="menu-title">Love Notes</div>
+      <div class="menu-desc">jarbe ma t2oule nya2</div>
+    </div>
+    
+    <div class="menu-item" onclick="toggleSection('openWhen', this)">
+      <span class="menu-icon">💌</span>
+      <div class="menu-title">Open When Letters</div>
+      <div class="menu-desc">For special moments</div>
+    </div>
+    
+    <div class="menu-item" onclick="toggleSection('videoSection', this)">
+      <span class="menu-icon">🎬</span>
+      <div class="menu-title">Video Message</div>
+      <div class="menu-desc">laenek ghalye</div>
+    </div>
+    
+    <div class="menu-item" onclick="toggleSection('memorySection', this)">
+      <span class="menu-icon">📖</span>
+      <div class="menu-title">Maha</div>
+      <div class="menu-desc">How it all began</div>
+    </div>
   </div>
 
-  <div id="photosGallery" class="content-section gallery" style="display:none;">
-    <img src="photo1.jpg" alt="Us">
-    <img src="photo2.jpg" alt="Us">
-    <img src="photo3.jpg" alt="Us">
-    <img src="photo4.jpg" alt="Us">
-    <img src="photo5.jpg" alt="Us">
-    <img src="photo6.jpg" alt="Us">
+  <div id="photosGallery" class="content-section">
+    <h2 class="section-title">Our Precious Moments</h2>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="first.jpeg" alt="Us">
+      </div>
+      <div class="gallery-item">
+        <img src="kiss.jpeg" alt="Us">
+      </div>
+      <div class="gallery-item">
+        <img src="cute.jpeg" alt="Us">
+      </div>
+      <div class="gallery-item">
+        <img src="beach.jpeg" alt="Us">
+      </div>
+      <div class="gallery-item">
+        <img src="anotherb.jpeg" alt="Us">
+      </div>
+      <div class="gallery-item">
+        <img src="smile.jpeg" alt="Us">
+      </div>
+      <div class="gallery-item">
+        <img src="eyes.jpeg" alt="Us">
+      </div>
+      <div class="gallery-item">
+        <img src="haha.jpeg" alt="Us">
+      </div>
+    </div>
   </div>
 
-  <div id="catGallery" class="content-section gallery" style="display:none;">
-    <img src="cat1.jpg" alt="Our Cat">
-    <img src="cat2.jpg" alt="Our Cat">
-    <img src="cat3.jpg" alt="Our Cat">
+  <div id="catGallery" class="content-section">
+    <h2 class="section-title">Our Furry Baby</h2>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="innocent.jpeg" alt="Our Cat">
+      </div>
+      <div class="gallery-item">
+        <img src="hayete.jpeg" alt="Our Cat">
+      </div>
+      <div class="gallery-item">
+        <img src="omg.jpeg" alt="Our Cat">
+      </div>
+      <div class="gallery-item">
+        <img src="batman.jpeg" alt="Our Cat">
+      </div>
+      <div class="gallery-item">
+        <img src="play.jpeg" alt="Our Cat">
+      </div>
+      <div class="gallery-item">
+        <img src="angry.jpeg" alt="Our Cat">
+      </div>
+    </div>
   </div>
 
-  <div id="loveNotes" class="content-section" style="display:none;">
-    <h2>Reasons I Love You 💘</h2>
-    <ul>
-      <li>You know how to make me smile even on tough days.</li>
-      <li>Your cuddles are better than any blanket. 🧸</li>
-      <li>You care about little things that matter big time.</li>
-      <li>We laugh at the same dumb memes.</li>
-      <li>You're simply my favorite human. 🌍</li>
-    </ul>
+  <div id="loveNotes" class="content-section">
+    <h2 class="section-title">Reasons I Love You 💘</h2>
+    <div class="love-notes">
+      <div class="love-note">
+        <p>You know how to make me smile even on tough days.</p>
+      </div>
+      <div class="love-note">
+        <p>You also know how to testafezeene on my toughest days.</p>
+      </div>
+      <div class="love-note">
+        <p>You remember the little things w ma btense.</p>
+      </div>
+      <div class="love-note">
+        <p>You care but you don't say it you show it.</p>
+      </div>
+      <div class="love-note">
+        <p>You're simply my favorite human bel kawkab. 🌍</p>
+      </div>
+    </div>
   </div>
 
-  <div id="openWhen" class="content-section" style="display:none;">
-    <h2>Open When Letters 💌</h2>
-    <button onclick="toggleLetter('happyLetter', this)">Open When You're Happy 😊</button>
-    <button onclick="toggleLetter('sadLetter', this)">Open When You're Sad 😢</button>
-    <div id="happyLetter" class="letter-content">I hope your smile is as big as your heart today. I'm so proud of you 💖</div>
-    <div id="sadLetter" class="letter-content">Hey, love. It's okay to feel sad sometimes. I'm always here for you, no matter what 💌</div>
+  <div id="openWhen" class="content-section">
+    <h2 class="section-title">Open When Letters 💌</h2>
+    <div class="open-when">
+      <div class="open-when-item" onclick="toggleLetter('happyLetter', this)">
+        <h4>😊 When You're Overstimulated </h4>
+        <p>Click to open this special message</p>
+      </div>
+      <div class="open-when-item" onclick="toggleLetter('sadLetter', this)">
+        <h4>😢 When You're Sad</h4>
+        <p>Click to open this comforting note</p>
+      </div>
+    </div>
+    
+    <div id="happyLetter" class="letter-content">
+      <h4>Marhaba🌞</h4>
+      <p>Probably manek tay2eetne wala 3am tehke ma3e if you're opening this. I want u to Know that I'm so proud of you and everything you do. Your happiness is the most important thing to me, Whenever u doubt me and understand my actions in a bad way know eno it's not what you're thinking and i put u before myself albe.Always try to talk to me ,i want u to feel safe and comfortable when u talk to me and can communicate with me when somehting is bothering you i won't judge u and i'll always be honest with you .bawse💖</p>
+    </div>
+    <div id="sadLetter" class="letter-content">
+      <h4>My Love 💝</h4>
+      <p>Hello ml. It's okay to feel sad sometimes. Remember that whatever is happening it'll go away, and I'm always here for you, no matter what.Awiye ente more than you know w mashi byestehel enek tez3ale men wara ya albe . 💌</p>
+    </div>
   </div>
 
-  <div id="videoSection" class="content-section" style="display:none;">
-    <h2>A Video Just for You 🎬</h2>
-    <video controls>
-      <source src="video.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+  <div id="videoSection" class="content-section">
+    <h2 class="section-title">A Video Just for You 🎬</h2>
+    <div class="video-container">
+      <video controls>
+        <source src="vid.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
   </div>
 
-  <div id="memorySection" class="content-section" style="display:none;">
-    <h2>📖 Our Story</h2>
-    <p>We met, we laughed, we clicked. From that first glance to today, every moment with you has been a beautiful chapter in our love story. I can't wait to write more pages together.</p>
+  <div id="memorySection" class="content-section">
+    <h2 class="section-title">📖 Shwayet Feelings</h2>
+    <div class="memory-content">
+      <p>مش كل شي لازم نفهمه… خلّيها على الله وعيشها بسلاسة!</p>
+      <p>Whatever happens i want you to know that i'll always be by your side.I know you have some doubts about our relationship sometimes and it's okay,the important thing is that we stick together and get through our problems together,ik i said it a lot of times bas i just want you to never forget this,fossek ghale byeswa l denya, I can't wait to create more memories that will last a lifetime. You are my favorite Person, and I never want it to end.Sometimes I overthink or get a little lost in my feelings and overeact , but that’s only because you mean so much to me and i care about you. </p>
+<p>I Love You So Much Baby(More Than You Know)</p>
+    </div>
   </div>
 
   <div class="back-btn">
@@ -317,55 +785,82 @@
   </div>
 
   <footer>
-    <p>Made with love by [Your Name] 💘</p>
+    <p>Made with love by abo 7med 💘</p>
   </footer>
 
   <script>
     // Toggle main sections
-    function toggleSection(sectionId, button) {
+    function toggleSection(sectionId, element) {
       const section = document.getElementById(sectionId);
       const allSections = document.querySelectorAll('.content-section');
-      const allButtons = document.querySelectorAll('.menu button');
+      const allMenuItems = document.querySelectorAll('.menu-item');
       
-      // Toggle the clicked section
-      if (section.style.display === 'block') {
-        section.style.display = 'none';
-        button.classList.remove('active');
-      } else {
-        // Hide all other sections
-        allSections.forEach(sec => {
-          sec.style.display = 'none';
-        });
-        
-        // Remove active class from all buttons
-        allButtons.forEach(btn => {
-          btn.classList.remove('active');
-        });
-        
-        // Show clicked section and mark button as active
-        section.style.display = 'block';
-        button.classList.add('active');
+      // Check if this section is already active
+      const isActive = element.classList.contains('active');
+      
+      // Remove active class from all menu items and hide all sections
+      allMenuItems.forEach(item => item.classList.remove('active'));
+      allSections.forEach(sec => {
+        sec.classList.remove('show');
+        setTimeout(() => {
+          if (!sec.classList.contains('show')) {
+            sec.style.display = 'none';
+          }
+        }, 300);
+      });
+      
+      // If section wasn't active, show it
+      if (!isActive) {
+        element.classList.add('active');
+        setTimeout(() => {
+          section.style.display = 'block';
+          section.classList.add('show');
+        }, 150);
       }
     }
 
     // Toggle letters in Open When section
-    function toggleLetter(letterId, button) {
+    function toggleLetter(letterId, element) {
       const letter = document.getElementById(letterId);
       const allLetters = document.querySelectorAll('.letter-content');
       
-      // Toggle the clicked letter
-      if (letter.style.display === 'block') {
-        letter.style.display = 'none';
-      } else {
-        // Hide all other letters
-        allLetters.forEach(ltr => {
-          ltr.style.display = 'none';
-        });
-        
-        // Show clicked letter
-        letter.style.display = 'block';
+      // Check if this letter is already open
+      const isOpen = letter.classList.contains('show');
+      
+      // Close all letters
+      allLetters.forEach(ltr => {
+        ltr.classList.remove('show');
+        setTimeout(() => {
+          if (!ltr.classList.contains('show')) {
+            ltr.style.display = 'none';
+          }
+        }, 300);
+      });
+      
+      // If letter wasn't open, show it
+      if (!isOpen) {
+        setTimeout(() => {
+          letter.style.display = 'block';
+          letter.classList.add('show');
+        }, 150);
       }
     }
+
+    // Add floating elements periodically
+    setInterval(() => {
+      if (Math.random() > 0.8) {
+        const love = document.createElement('div');
+        love.className = 'floating-love';
+        love.style.left = Math.random() * 100 + '%';
+        love.style.animationDelay = '0s';
+        love.innerHTML = ['💕', '💖', '✨', '💫'][Math.floor(Math.random() * 4)];
+        document.querySelector('.love-container').appendChild(love);
+        
+        setTimeout(() => {
+          sparkle.remove();
+        }, 3000);
+      }
+    }, 5000);
   </script>
 </body>
 </html>

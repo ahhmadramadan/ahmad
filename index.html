@@ -4,295 +4,644 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Love Bubble</title>
-  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Quicksand:wght@300;400;600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --main-pink: #fcbad3;
-      --light-pink: #ffe3ec;
-      --accent: #ff6f91;
-      --text: #4a148c;
+      --primary: #ff6b9d;
+      --secondary: #c44569;
+      --accent: #f8b500;
+      --bg-light: #fff0f8;
+      --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+      --text-dark: #2c2c54;
+      --text-light: #40407a;
       --white: #ffffff;
+      --shadow: 0 10px 30px rgba(255, 107, 157, 0.3);
+      --shadow-hover: 0 15px 40px rgba(255, 107, 157, 0.4);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
     body {
-      margin: 0;
-      font-family: 'Quicksand', sans-serif;
-      background: linear-gradient(to bottom, var(--light-pink), var(--main-pink));
-      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-dark);
       overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
     }
 
+    /* Creative Corner Elements */
+    .corner-decoration {
+      position: fixed;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .corner-top-left {
+      top: 0;
+      left: 0;
+      width: 150px;
+      height: 150px;
+      background: linear-gradient(135deg, var(--primary), transparent);
+      clip-path: polygon(0 0, 100% 0, 0 100%);
+      opacity: 0.3;
+    }
+
+    .corner-top-right {
+      top: 20px;
+      right: 20px;
+      font-size: 2rem;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .corner-bottom-left {
+      bottom: 20px;
+      left: 20px;
+      font-size: 1.5rem;
+      animation: pulse 4s ease-in-out infinite;
+    }
+
+    .corner-bottom-right {
+      bottom: 0;
+      right: 0;
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(45deg, var(--accent), transparent);
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+      opacity: 0.2;
+    }
+
+    /* Floating Love Elements */
+    .love-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .floating-love {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.4;
+      animation: floatLove 12s infinite linear;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+
+    @keyframes floatLove {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.4;
+      }
+      90% {
+        opacity: 0.4;
+      }
+      100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(5deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+    }
+
+    /* Sparkle Effect */
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: sparkle 3s infinite ease-in-out;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    /* Header */
     header {
-      background: url('banner.jpg') center/cover no-repeat;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
       text-align: center;
-      padding: 150px 20px 100px;
+      padding: 120px 20px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hearts" patternUnits="userSpaceOnUse" width="20" height="20"><path d="M10,6 C10,3 7,1 5,3 C3,1 0,3 0,6 C0,10 5,14 10,6 Z" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>');
+      animation: backgroundFloat 20s infinite linear;
+    }
+
+    @keyframes backgroundFloat {
+      0% { transform: translateX(0) translateY(0); }
+      100% { transform: translateX(-20px) translateY(-20px); }
     }
 
     header h1 {
       font-family: 'Indie Flower', cursive;
-      font-size: 4em;
+      font-size: clamp(3rem, 8vw, 5rem);
       color: var(--white);
-      text-shadow: 2px 2px 5px var(--accent);
+      text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 2;
+      margin-bottom: 10px;
+      animation: titlePulse 3s ease-in-out infinite;
+    }
+
+    @keyframes titlePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.9);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Curve Divider */
+    .curve-divider {
+      position: relative;
+      margin-top: -60px;
+      z-index: 3;
+    }
+
+    .curve-divider svg {
+      display: block;
+      width: 100%;
+      height: 80px;
+      filter: drop-shadow(0 -5px 10px rgba(0,0,0,0.1));
+    }
+
+    /* Main Content */
+    .main-content {
+      position: relative;
+      z-index: 2;
+      padding: 60px 20px;
     }
 
     .intro {
-      background: rgba(255, 255, 255, 0.85);
-      border-radius: 20px;
-      padding: 30px;
-      margin: 40px auto;
-      width: 80%;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      padding: 50px 40px;
+      margin: 0 auto 60px;
       max-width: 800px;
       text-align: center;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      font-size: 1.3em;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.8);
+      position: relative;
+      overflow: hidden;
     }
 
-    .countdown {
-      text-align: center;
-      margin: 20px auto;
-      font-size: 1.5em;
-      font-weight: bold;
-      background-color: var(--white);
-      width: fit-content;
-      padding: 20px 30px;
-      border-radius: 15px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-      color: var(--accent);
+    .intro::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: shimmer 3s infinite;
     }
 
-    .start-btn {
-      display: block;
-      margin: 30px auto;
-      background-color: var(--accent);
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .intro p {
+      font-size: 1.3rem;
+      line-height: 1.8;
+      color: var(--text-light);
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
-      padding: 15px 30px;
-      font-size: 1.2em;
+      padding: 18px 40px;
+      font-size: 1.2rem;
+      font-weight: 600;
       border: none;
-      border-radius: 25px;
+      border-radius: 50px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
       text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      transition: width 0.4s ease;
+      z-index: -1;
+    }
+
+    .btn:hover::before {
+      width: 100%;
+    }
+
+    .btn:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .btn:active {
+      transform: translateY(-2px) scale(1.02);
+    }
+
+    /* Countdown Section */
+    .countdown-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      margin: 60px auto;
+      max-width: 600px;
+    }
+
+    .countdown-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
       text-align: center;
-      width: fit-content;
+      width: 100%;
+      position: relative;
     }
 
-    .start-btn:hover {
-      background-color: var(--text);
+    .countdown-card h3 {
+      color: var(--primary);
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      font-weight: 600;
     }
 
-    #anniversaryBtn {
-      display: block;
-      margin: 20px auto;
-      background-color: var(--accent);
+    .countdown-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin: 10px 0;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Surprise Section */
+    .surprise-section {
+      text-align: center;
+      margin: 60px auto;
+      max-width: 500px;
+    }
+
+    #surpriseMessage {
+      background: linear-gradient(135deg, var(--accent), var(--primary));
       color: white;
-      font-size: 1.2em;
-      padding: 10px 25px;
-      border: none;
-      border-radius: 25px;
-      cursor: not-allowed;
-      opacity: 0.6;
+      padding: 25px 35px;
+      border-radius: 20px;
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: 500;
+      box-shadow: var(--shadow);
+      transform: scale(0);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     }
 
-    #anniversaryBtn.active {
-      cursor: pointer;
+    #surpriseMessage.show {
+      transform: scale(1);
       opacity: 1;
     }
 
-    #anniversaryBtn.active:hover {
-      background-color: var(--text);
-    }
-
-    #anniversaryMessage {
-      display: none;
+    /* Anniversary Modal */
+    .modal {
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: var(--white);
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-      z-index: 9999;
-      text-align: center;
-      max-width: 400px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(5px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
     }
 
-    #anniversaryMessage h3 {
-      color: var(--accent);
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 50px 40px;
+      border-radius: 25px;
+      text-align: center;
+      max-width: 500px;
+      margin: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      transform: scale(0.8);
+      transition: transform 0.3s ease;
+    }
+
+    .modal.show .modal-content {
+      transform: scale(1);
+    }
+
+    .modal h3 {
+      color: var(--primary);
       font-family: 'Indie Flower', cursive;
-      font-size: 1.8em;
-      margin-bottom: 15px;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
     }
-.heart {
-  position: absolute;
-  width: 28px;
-  height: 28px;
-  background-image: url('https://cdn-icons-png.flaticon.com/512/833/833472.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  opacity: 0.6;
-  animation: floatHeart 10s infinite ease-in-out;
-  pointer-events: none;
-  z-index: 0;
-}
 
-@keyframes floatHeart {
-  0% { transform: translateY(0) rotate(0deg); opacity: 0.6; }
-  50% { transform: translateY(-20px) rotate(15deg); opacity: 0.8; }
-  100% { transform: translateY(0) rotate(-15deg); opacity: 0.6; }
-}
-.star {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background-color: #fff;
-  border-radius: 50%;
-  opacity: 0.8;
-  animation: twinkle 2s infinite ease-in-out;
-  z-index: 0;
-}
+    .modal p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: var(--text-light);
+    }
 
-@keyframes twinkle {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.5); }
-}
-.curve-divider {
-  position: relative;
-  top: -50px;
-  z-index: 1;
-}
-
-
+    /* Footer */
     footer {
-      text-align: center;
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--secondary), var(--primary));
       color: white;
-      padding: 20px;
-      margin-top: 40px;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    footer p {
+      font-size: 1.1rem;
+      font-weight: 300;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .intro {
+        padding: 30px 25px;
+        margin: 0 15px 40px;
+      }
       
+      .countdown-section {
+        margin: 40px 15px;
+      }
+      
+      .btn {
+        padding: 15px 30px;
+        font-size: 1.1rem;
+      }
+      
+      .modal-content {
+        padding: 40px 25px;
+        margin: 15px;
+      }
+
+      .corner-top-left,
+      .corner-bottom-right {
+        width: 80px;
+        height: 80px;
+      }
+    }
+
+    /* Loading Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.8s ease forwards;
     }
   </style>
 </head>
 <body>
-  <header>
+  <!-- Corner Decorations -->
+  <div class="corner-decoration corner-top-left"></div>
+  <div class="corner-decoration corner-top-right">✨</div>
+  <div class="corner-decoration corner-bottom-left">💫</div>
+  <div class="corner-decoration corner-bottom-right"></div>
+
+  <!-- Floating Love Elements Container -->
+  <div class="love-container">
+    <!-- Subtle love elements -->
+    <div class="floating-love" style="left: 20%; animation-delay: 0s;">💕</div>
+    <div class="floating-love" style="left: 80%; animation-delay: 6s;">💖</div>
     
-    <h1>Hi Habibti 💖</h1>
+    <!-- Sparkles -->
+    <div class="sparkle" style="top: 15%; left: 10%; animation-delay: 1s;"></div>
+    <div class="sparkle" style="top: 25%; right: 15%; animation-delay: 2s;"></div>
+    <div class="sparkle" style="bottom: 30%; left: 20%; animation-delay: 3s;"></div>
+  </div>
+
+  <header>
+    <h1>Hi Babyy 💖</h1>
+    <p class="subtitle">keefek meshe l7al kello tamemmmm</p>
   </header>
+
   <div class="curve-divider">
-  <svg viewBox="0 0 1440 150" preserveAspectRatio="none" style="display: block; width: 100%;">
-    <path d="M0,96L80,106.7C160,117,320,139,480,138.7C640,139,800,117,960,117.3C1120,117,1280,139,1360,149.3L1440,160L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z" fill="#ffe3ec"></path>
-  </svg>
-</div>
-
-
-  <div class="heart" style="top: 40px; left: 20px;"></div>
-<div class="heart" style="top: 120px; right: 30px;"></div>
-<div class="heart" style="bottom: 80px; left: 15%;"></div>
-<div class="heart" style="top: 60%; right: 10%;"></div>
-<div class="heart" style="bottom: 30px; right: 5%;"></div>
-<div class="heart" style="top: 200px; left: 50%;"></div>
-<div class="heart" style="bottom: 150px; right: 40%;"></div>
-<div class="heart" style="top: 300px; left: 70%;"></div>
-
-<div class="star" style="top: 60px; left: 15%;"></div>
-<div class="star" style="top: 300px; right: 20%;"></div>
-<div class="star" style="bottom: 100px; left: 25%;"></div>
-
-
-  <div class="intro">
-    <p>This is your special corner of the internet, made with love just for you. Here you'll find memories, laughs, and little surprises. When you're ready, click the button below 💌</p>
-    <a class="start-btn" href="explore.html">Enter Our World 💫</a>
+    <svg viewBox="0 0 1440 150" preserveAspectRatio="none">
+      <path d="M0,96L80,106.7C160,117,320,139,480,138.7C640,139,800,117,960,117.3C1120,117,1280,139,1360,149.3L1440,160L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z" fill="rgba(255,255,255,0.95)"></path>
+    </svg>
   </div>
 
-  <div class="countdown">
-    <p>Days until our next anniversary: <span id="countdown"></span></p>
-    <p>Days until your surprise: <span id="specialCountdown"></span></p>
-    <button id="anniversaryBtn" onclick="showAnniversaryNote()">💌 Anniversary Surprise</button>
+  <div class="main-content">
+    <div class="intro fade-in">
+      <p>ya ahla w sahla,welcome to your little surprise nshallah tkoun 3a zaw2ek 💕</p>
+      <a class="btn" href="explore.html">Enter Our World 💫</a>
+    </div>
+
+    <div class="countdown-section fade-in">
+      <div class="countdown-card">
+        <h3>Days until our next anniversary</h3>
+        <div class="countdown-number" id="countdown">Loading...</div>
+      </div>
+      
+      <div class="countdown-card">
+        <h3>Days until your surprise</h3>
+        <div class="countdown-number" id="specialCountdown">Loading...</div>
+        <button id="anniversaryBtn" class="btn" onclick="showAnniversaryNote()" style="margin-top: 20px; opacity: 0.6; cursor: not-allowed;">
+          💌 Anniversary Surprise
+        </button>
+      </div>
+    </div>
+
+    <div class="surprise-section fade-in">
+      <button class="btn" onclick="showSurprise()">🎁 Little Surprise</button>
+      <div id="surpriseMessage"></div>
+    </div>
   </div>
 
-  <div id="anniversaryMessage">
-    <h3>🌟 Happy Anniversary! 🌟</h3>
-    <p>Surprise! It's our special day and I just want to say... I love you even more today than I did yesterday. You're my everything 💖</p>
+  <!-- Anniversary Modal -->
+  <div id="anniversaryModal" class="modal">
+    <div class="modal-content">
+      <h3>🌟 Happy Anniversary MLLL! 🌟</h3>
+      <p>Surprise! It's our special day and I just want to say... I love you so much. I'm so grateful to have you.Ahla 3 Months i spent with you, You're my everything ,I love your cute smile and when your eyes shrink when u smile(yueborneeee),I love listening To your voice when u talk and when u tell me stories even if it's stuff i don't understand,i love when u give me your little attitude (so cute) ,we've been through a lot ,bad and good times but we're still together and i keep choosing you after everything.Ba3ref enno we’re still figuring things out, and it’s not always easy but wallah, I wouldn’t trade this for anything. I’m not asking for perfect. I’m just asking for us, full of love in its own unique way.Happy 3 months baby w 3a2bel l 100000 w yedfnouna fo2 ba3d💖</p>
+      <p>I appreciate you more than words will ever say.</p>
+      <p>وجودك نعمة بحمد الله عليها كل يوم</p>
+      <button class="btn" onclick="closeModal()" style="margin-top: 20px;">Close 💕</button>
+    </div>
   </div>
-<div style="text-align:center; margin-top: 30px;">
-  <button class="start-btn" onclick="showSurprise()">🎁 Little Surprise</button>
-</div>
-<p id="surpriseMessage" style="text-align:center; font-style: italic; display:none;"></p>
-
-<script>
-  function showSurprise() {
-    const messages = [
-      "Let’s watch your favorite movie tonight 🎬",
-      "A big cuddly hug is waiting for you 🧸",
-      "You're my safe place 💗",
-      "How about a spontaneous picnic? 🌸"
-    ];
-    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-    const el = document.getElementById("surpriseMessage");
-    el.innerText = randomMsg;
-    el.style.display = "block";
-  }
-</script>
 
   <footer>
-    <p>Made with love by [Your Name] 💘</p>
+    <p>Made with love by your man 💘</p>
   </footer>
 
   <script>
+    // Initialize animations
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add fade-in animation with delay
+      const elements = document.querySelectorAll('.fade-in');
+      elements.forEach((el, index) => {
+        el.style.animationDelay = `${index * 0.2}s`;
+      });
+    });
+
     function showSurprise() {
-    const messages = [
-      "Let’s watch your favorite movie tonight 🎬",
-      "A big cuddly hug is waiting for you 🧸",
-      "You're my safe place 💗",
-      "How about a spontaneous picnic? 🌸"
-    ];
-    const randomMsg = messages[Math.floor(Math.random() * messages.length)];
-    const el = document.getElementById("surpriseMessage");
-    el.innerText = randomMsg;
-    el.style.display = "block";
-  }
+      const messages = [
+        "I have cameras in your room 🎬",
+        "Ahla benet bel kawkab kello ✨",
+        "You're my safe place 💗",
+        "Badek nehdar horror movie? 🎬",
+        "yueborne fossek shu ghale 😄",
+        "manne 7et! 😘",
+        "You make my heart skip a beat 💓",
+        "Every day with you is magical ✨",
+        "You're my favorite person 🥰"
+      ];
+      const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+      const el = document.getElementById("surpriseMessage");
+      el.innerText = randomMsg;
+      el.classList.add('show');
+      
+      // Hide after 4 seconds
+      setTimeout(() => {
+        el.classList.remove('show');
+      }, 4000);
+    }
 
     const countdownElement = document.getElementById("countdown");
     const specialCountdown = document.getElementById("specialCountdown");
     const anniversaryBtn = document.getElementById("anniversaryBtn");
     const targetDate = new Date("2025-12-20");
-    const anniversaryDate = new Date("2025-06-24");
+    const anniversaryDate = new Date("2025-06-25");
 
     function updateCountdown() {
       const now = new Date();
       const timeDiff = targetDate - now;
       const days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-      countdownElement.innerText = days > 0 ? `${days} days ❤️` : "Today is our day! 🎉";
+      countdownElement.innerText = days > 0 ? `${days}` : "Today! 🎉";
 
       const specialDiff = anniversaryDate - now;
       const specialDays = Math.ceil(specialDiff / (1000 * 60 * 60 * 24));
-      specialCountdown.innerText = specialDays > 0 ? `${specialDays} days` : specialDays === 0 ? "Today!" : "Passed";
+      specialCountdown.innerText = specialDays > 0 ? `${specialDays}` : specialDays === 0 ? "Today!" : "Passed";
 
       // Enable button only on anniversary date
       if (now.toDateString() === anniversaryDate.toDateString()) {
-        anniversaryBtn.classList.add('active');
-      } else {
-        anniversaryBtn.classList.remove('active');
+        anniversaryBtn.style.opacity = '1';
+        anniversaryBtn.style.cursor = 'pointer';
       }
     }
 
     function showAnniversaryNote() {
       const now = new Date();
       if (now.toDateString() === anniversaryDate.toDateString()) {
-        document.getElementById("anniversaryMessage").style.display = "block";
+        document.getElementById("anniversaryModal").classList.add('show');
       }
     }
 
-    // Close message when clicking outside
-    document.addEventListener('click', function(event) {
-      const message = document.getElementById("anniversaryMessage");
-      if (event.target !== anniversaryBtn && !message.contains(event.target)) {
-        message.style.display = "none";
+    function closeModal() {
+      document.getElementById("anniversaryModal").classList.remove('show');
+    }
+
+    // Close modal when clicking outside
+    document.getElementById("anniversaryModal").addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeModal();
       }
     });
 
     updateCountdown();
     setInterval(updateCountdown, 1000 * 60);
+
+    // Add occasional love elements (subtle)
+    setInterval(() => {
+      if (Math.random() > 0.8) { // Less frequent than before
+        const love = document.createElement('div');
+        love.className = 'floating-love';
+        love.style.left = Math.random() * 100 + '%';
+        love.style.animationDelay = '0s';
+        love.innerHTML = ['💕', '💖', '✨', '💫'][Math.floor(Math.random() * 4)];
+        document.querySelector('.love-container').appendChild(love);
+        
+        setTimeout(() => {
+          love.remove();
+        }, 12000);
+      }
+    }, 10000); // Less frequent spawning
+
+    // Add sparkle effects occasionally
+    setInterval(() => {
+      if (Math.random() > 0.7) {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.top = Math.random() * 80 + 10 + '%';
+        sparkle.style.left = Math.random() * 80 + 10 + '%';
+        sparkle.style.animationDelay = '0s';
+        document.body.appendChild(sparkle);
+        
+        setTimeout(() => {
+          sparkle.remove();
+        }, 3000);
+      }
+    }, 5000);
   </script>
 </body>
 </html>
